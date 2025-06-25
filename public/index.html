@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Pagamento Guest PayPal</title>
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+  <title>PayPal Guest Payment</title>
+  <!-- Use LIVE client ID for guest payments -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AcmUlUxLsdw-GhQPQ5n6bT-oXlX-HFFMNNdLY3qUAdDo_a4H3ALkXaOHLKL4VKk99S8gRGLBq2RZH0vL&currency=USD&commit=true&intent=capture"></script>
 </head>
 <body>
-  <h2>Comprar Licença</h2>
+  <h1>Comprar licença</h1>
   <div id="paypal-button-container"></div>
 
   <script>
     paypal.Buttons({
-      createOrder: function (data, actions) {
+      style: {
+        layout: 'vertical',
+        color: 'blue',
+        shape: 'rect',
+        label: 'paypal'
+      },
+      createOrder: function(data, actions) {
         return actions.order.create({
           purchase_units: [{
-            amount: { value: '9.99' } // valor do pagamento
+            amount: {
+              value: '9.99'
+            }
           }]
         });
       },
-      onApprove: function (data, actions) {
-        return actions.order.capture().then(function (details) {
-          alert('Pagamento feito por: ' + details.payer.name.given_name);
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert("Pagamento confirmado: " + details.payer.email_address);
 
-          // Chamada POST para o backend licenseme
+          // POST para a API licenseme
           fetch('/api/licenseme', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
               payerID: data.payerID,
               orderID: data.orderID,
@@ -33,11 +44,9 @@
             })
           })
           .then(res => res.json())
-          .then(result => {
-            console.log('Licença emitida:', result);
-            alert('Licença emitida com sucesso!');
-          })
-          .catch(err => console.error('Erro na licença:', err));
+          .then(json => {
+            alert("Licença gerada: " + json.license);
+          });
         });
       }
     }).render('#paypal-button-container');
