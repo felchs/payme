@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <title>PayPal Guest Payment</title>
   <!-- Use LIVE client ID for guest payments -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AcmUlUxLsdw-GhQPQ5n6bT-oXlX-HFFMNNdLY3qUAdDo_a4H3ALkXaOHLKL4VKk99S8gRGLBq2RZH0vL&currency=USD&commit=true&intent=capture"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AcmUlUxLsdw-GhQPQ5n6bT-oXlX-HFFMNNdLY3qUAdDo_a4H3ALkXaOHLKL4VKk99S8gRGLBq2RZH0vL&currency=BRL&commit=true&intent=capture"></script>
 </head>
 <body>
-  <h1>Comprar licença</h1>
   <div id="paypal-button-container"></div>
 
   <script>
@@ -22,14 +21,17 @@
         return actions.order.create({
           purchase_units: [{
             amount: {
-              value: '9.99'
+              value: '5.89'
             }
           }]
         });
       },
       onApprove: function(data, actions) {
         return actions.order.capture().then(function(details) {
-          alert("Pagamento confirmado: " + details.payer.email_address);
+			alert("after payment...");
+			console.log("Payer Order Id: " + data.orderID);
+			console.log("Payment email: " + details.payer.email_address);
+
 
           // POST para a API licenseme
           fetch('/api/licenseme', {
@@ -45,8 +47,9 @@
           })
           .then(res => res.json())
           .then(json => {
-            alert("Licença gerada: " + json.license);
+            console.log("License ok: " + json.license);
           });
+		  
         });
       }
     }).render('#paypal-button-container');
