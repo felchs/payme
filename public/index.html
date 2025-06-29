@@ -59,6 +59,9 @@
 		  
         });
       }
+	  onError: function(err) {
+		console.error("PayPal error:", err);
+	  }
     }).render('#paypal-button-container');
   </script>
 </body>
