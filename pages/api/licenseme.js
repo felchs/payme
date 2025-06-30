@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
-module.exports = async function handler(req, res) 
-{
+module.exports = async function handler(req, res) {
+  
   console.log("--- handler");
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
