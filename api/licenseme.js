@@ -1,4 +1,8 @@
-export default async function handler(req, res) {
+const fetch = require('node-fetch');
+
+module.exports = async function handler(req, res) 
+{
+  console.log("--- handler");
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
@@ -13,9 +17,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Pagamento não confirmado' });
     }
 
-	try 
+	try {
+		console.log("--- on try...");		
 		var entry_orderid = email + "|" + orderID;
-		const response = await fetch('https://3.128.24.108/REGISTER_ENTRY', {
+		const response = await fetch('https://3.17.142.240/REGISTER_ENTRY', {
 		  method: 'POST',
 		  headers: {
 			'Content-Type': 'application/json',
