@@ -1,18 +1,17 @@
 {
   "name": "payme",
   "version": "1.0.0",
-  "description": "Payment Hub implemented in c++",
-  "main": "index.js",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "node-fetch": "^2.7.0"
+    "next": "13.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }
