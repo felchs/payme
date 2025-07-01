@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     const entry_orderid = email + "|" + orderID;
 
-    const response = await fetch('https://3.17.142.240/REGISTER_ENTRY', {
+    const response = await fetch('http://3.17.142.240:80/license', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
