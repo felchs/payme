@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
-  
-  console.log("--- handler api");
+  console.log("--- handler");
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
@@ -8,55 +8,45 @@ export default async function handler(req, res) {
   const { orderID, email } = req.body;
 
   try {
-    //const accessToken = await getAccessToken();
-    //const order = await verifyPayment(orderID, accessToken);
+    // TODO: Uncomment and implement these functions if you want to verify payment
+    // const accessToken = await getAccessToken();
+    // const order = await verifyPayment(orderID, accessToken);
+    //
+    // if (order.status !== 'COMPLETED') {
+    //   return res.status(400).json({ error: 'Pagamento não confirmado' });
+    // }
 
-    if (order.status !== 'COMPLETED') {
-      return res.status(400).json({ error: 'Pagamento não confirmado' });
+    console.log("--- on try...");
+
+    const entry_orderid = email + "|" + orderID;
+
+    const response = await fetch('https://3.17.142.240/REGISTER_ENTRY', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'pri': 'test123',
+        'REGISTER_ENTRY': entry_orderid
+      }
+      // Optionally, you can move entry_orderid to the body instead of header
+      // body: JSON.stringify({ REGISTER_ENTRY: entry_orderid })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Erro ao registrar licença:", errorText);
+      return res.status(500).json({ error: 'Erro ao registrar licença' });
     }
 
-	try {
-		console.log("--- on try...");		
-		var entry_orderid = email + "|" + orderID;
-		const response = await fetch('https://3.17.142.240/REGISTER_ENTRY', {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-			'pri': 'test123',
-			'REGISTER_ENTRY': entry_orderid
-		  },
-		  //body: JSON.stringify({
-		  //	REGISTER_ENTRY: entry_orderid
-		  //})
-		});
-
-		if (!response.ok) {
-		  const errorText = await response.text();
-		  console.error("Erro ao registrar licença:", errorText);
-		  return res.status(500).json({ error: 'Erro ao registrar licença' });
-		}
-
-		const licenseData = await response.json();
-
-		return res.status(200).json({
-		  status: 'ok',
-		  license: licenseData.license || 'UNKNOWN',
-		  email
-		});
-	} catch (error) {
-		console.error("Erro na requisição à API de licença:", error);
-		return res.status(500).json({ error: 'Erro interno ao emitir licença' });
-	}
-  
+    const licenseData = await response.json();
 
     return res.status(200).json({
       status: 'ok',
-      license: 'ABC123-DEF456-GHI789',
+      license: licenseData.license || 'UNKNOWN',
       email
     });
 
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erro ao verificar pagamento' });
+    console.error("Erro no handler:", err);
+    return res.status(500).json({ error: 'Erro interno ao emitir licença' });
   }
 }
