@@ -40,13 +40,11 @@ export default async function handler(req, res) {
     const licenseData = await response.json();
 
     return res.status(200).json({
-      status: 'ok',
-      license: licenseData.license || 'UNKNOWN',
-      email
+      status: 'ok'
     });
 
   } catch (err) {
     console.error("Erro no handler:", err);
-    return res.status(500).json({ error: 'Erro interno ao emitir licença' });
+    return res.status(500).json({ error: 'Erro interno ao emitir licença: ' + err });
   }
 }
