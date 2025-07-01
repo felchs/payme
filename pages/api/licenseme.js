@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     const response = await fetch('http://3.17.142.240:80/license', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
         'pri': 'test123',
         'REGISTER_ENTRY': entry_orderid
       }
