@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
-        'pri': 'test123',
+        'pri': 'mP7XUACJB3h1yhgCqh',
         'REGISTER_ENTRY': entry
       }
       // Optionally, you can move entry_orderid to the body instead of header
