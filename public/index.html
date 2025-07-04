@@ -43,6 +43,7 @@
 		      alert("after payment...");
 		      console.log("Payer Order Id: " + data.orderID);
 		      console.log("Payment email: " + details.payer.email_address);
+          console.log("UserId: " + userId);
 
           // POST para a API licenseme
           fetch('/api/licenseme', {
