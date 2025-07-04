@@ -12,8 +12,8 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get('id');
-    console.log("User ID from URL:", userId);
+    const uniqueId = urlParams.get('id');
+    console.log("ID from URL:", uniqueId);
   
     paypal.Buttons({
       style: {
@@ -43,7 +43,7 @@
 		      alert("after payment...");
 		      console.log("Payer Order Id: " + data.orderID);
 		      console.log("Payment email: " + details.payer.email_address);
-          console.log("UserId: " + userId);
+          console.log("UniqueId: " + uniqueId);
 
           // POST para a API licenseme
           fetch('/api/licenseme', {
@@ -54,7 +54,7 @@
             body: JSON.stringify({
               orderID: data.orderID,
               email: details.payer.email_address,
-			        entry: userId
+              uniqueID: uniqueId
             })
           })
           .then(res => res.json())

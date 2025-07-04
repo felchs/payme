@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método não permitido' });
   }
 
-  const { orderID, email, userID } = req.body;
+  const { orderID, email, uniqueID } = req.body;
 
   try {
     // TODO: Uncomment and implement these functions if you want to verify payment
@@ -16,9 +16,7 @@ export default async function handler(req, res) {
     //   return res.status(400).json({ error: 'Pagamento não confirmado' });
     // }
 
-    console.log("--- on try...");
-
-    const entry = orderID + "|" + email + "|" + userID;
+    const entry = orderID + "|" + email + "|" + uniqueID;
 
     const response = await fetch('http://18.222.202.86:80/license', {
       method: 'POST',
