@@ -11,6 +11,10 @@
   <div id="paypal-button-container"></div>
 
   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    console.log("User ID from URL:", userId);
+  
     paypal.Buttons({
       style: {
         layout: 'vertical',
@@ -48,7 +52,8 @@
             },
             body: JSON.stringify({
               orderID: data.orderID,
-              email: details.payer.email_address
+              email: details.payer.email_address,
+			        entry: userId
             })
           })
           .then(res => res.json())

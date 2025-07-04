@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método não permitido' });
   }
 
-  const { orderID, email } = req.body;
+  const { orderID, email, userID } = req.body;
 
   try {
     // TODO: Uncomment and implement these functions if you want to verify payment
@@ -18,14 +18,14 @@ export default async function handler(req, res) {
 
     console.log("--- on try...");
 
-    const entry_orderid = email + "|" + orderID;
+    const entry = orderID + "|" + email + "|" + userID;
 
     const response = await fetch('http://3.17.142.240:80/license', {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
         'pri': 'test123',
-        'REGISTER_ENTRY': entry_orderid
+        'REGISTER_ENTRY': entry
       }
       // Optionally, you can move entry_orderid to the body instead of header
       // body: JSON.stringify({ REGISTER_ENTRY: entry_orderid })
