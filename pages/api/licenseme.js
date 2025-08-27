@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
-  console.log("--- handler");
+  console.log("Handler...");
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Método não permitido' });
+    return res.status(405).json({ error: 'Metodo nao permitido' });
   }
 
   const { orderID, email, uniqueID } = req.body;
@@ -31,8 +31,8 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Erro ao registrar licença:", errorText);
-      return res.status(500).json({ error: 'Erro ao registrar licença' });
+      console.error("Erro ao registrar licenca: ", errorText);
+      return res.status(500).json({ error: 'Erro ao registrar licenca' });
     }
 
     //const licenseData = await response.json();
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error("Erro no handler:", err);
-    return res.status(500).json({ error: 'Erro interno ao emitir licença: ' + err });
+    console.error("Erro no handler: ", err);
+    return res.status(500).json({ error: 'Erro interno ao emitir licenca: ' + err });
   }
 }
