@@ -146,10 +146,10 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const uniqueId = urlParams.get('id');
-    console.log("ID from URL:", uniqueId);
+    const uniqueID = urlParams.get('id');
+    console.log("ID from URL:", uniqueID);
 
-    if (uniqueId != null)
+    if (uniqueID != null)
     {
       setTimeout(() => {
           document.getElementById("payment").style.display = "inline-block";
@@ -193,7 +193,7 @@
               body: JSON.stringify({
                 orderID: data.orderID,
                 email: details.payer.email_address,
-                uniqueID: details.uniqueID
+                uniqueID: uniqueID
               })
             })
             .then(res => res.json())
