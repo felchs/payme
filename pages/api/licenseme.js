@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Erro ao registrar licenca: ", errorText);
-      return res.status(500).json({ error: 'Erro ao registrar licenca' });
+      return res.status(500).json({ error: 'Erro ao registrar licenca' + ', entry: ' + entry });
     }
 
     //const licenseData = await response.json();
