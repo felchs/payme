@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     const entry = orderID + "|" + email + "|" + uniqueID;
 
-    const response = await fetch('http://18.118.150.46:80/license', {
+    const response = await fetch('http://18.118.50.146:80/license', {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
