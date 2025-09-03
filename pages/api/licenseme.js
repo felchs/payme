@@ -43,6 +43,6 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error("Erro no handler: ", err);
-    return res.status(500).json({ error: 'Erro interno ao emitir licenca: ' + err });
+    return res.status(500).json({ error: 'Erro interno ao emitir licenca: ' + err  + ', ENTRY: ' + entry});
   }
 }
